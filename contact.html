@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | ICSA - International Institute of Computer Science and Administration</title>
+    <meta name="description" content="Contact ICSA Kuwait for course inquiries, enrollment information, and more. We're here to help you start your learning journey.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <div class="top-bar-left">
+                    <div class="top-bar-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+965 XXXX XXXX</span>
+                    </div>
+                    <div class="top-bar-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@icsakuwait.com</span>
+                    </div>
+                </div>
+                <div class="top-bar-right">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon"><img src="images/ICSA-LOGO.png" alt="ICSA Logo"></div>
+                    <div class="logo-text">
+                        <span class="logo-title">ICSA</span>
+                        <span class="logo-subtitle">International Institute of Computer Science and Administration</span>
+                    </div>
+                </a>
+
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="about.html" class="nav-link">About Us</a>
+                    <a href="courses.html" class="nav-link">Courses</a>
+                    <a href="contact.html" class="nav-link active">Contact</a>
+                </nav>
+
+                <div class="header-actions">
+                    <a href="courses.html" class="btn btn-primary btn-sm">Enroll Now</a>
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p>Get in touch with us for course inquiries, enrollment information, or any questions you may have.</p>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <span>Contact</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Info -->
+                <div class="contact-info-card">
+                    <h3>Get In Touch</h3>
+                    
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Visit Us</strong>
+                            <p>Kuwait City, Maliya<br>Panasonic Tower, 8th Floor, Office 25/26</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Call Us</strong>
+                            <p>+965 XXXX XXXX<br>+965 XXXX XXXX</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email Us</strong>
+                            <p>info@icsakuwait.com<br>admissions@icsakuwait.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <strong>Working Hours</strong>
+                            <p>Saturday - Thursday: 9:00 AM - 8:00 PM<br>Friday: Closed</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-social">
+                        <h4>Follow Us</h4>
+                        <div class="contact-social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="inquiry-form" style="margin: 0;">
+                    <h3 style="margin-bottom: 0.5rem; color: var(--primary);">Send Us a Message</h3>
+                    <p style="margin-bottom: 1.5rem; color: var(--gray-600);">Fill out the form below and we'll get back to you as soon as possible.</p>
+                    
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Full Name </label>
+                                <input type="text" class="form-input" name="name" placeholder="Your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address </label>
+                                <input type="email" class="form-input" name="email" placeholder="your@email.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Phone Number </label>
+                                <input type="tel" class="form-input" name="phone" placeholder="+965 XXXX XXXX" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Course Interest</label>
+                                <select class="form-select" name="course">
+                                    <option value="">Select a course (optional)</option>
+                                    <optgroup label="IT & Technical">
+                                        <option value="computer-secretarial">Computer Secretarial</option>
+                                        <option value="office-management">Office Management</option>
+                                        <option value="graphics-designing">Graphics Designing</option>
+                                        <option value="multimedia-motion-graphics">Multimedia & Motion Graphics</option>
+                                        <option value="web-designing">Web Designing</option>
+                                        <option value="programming-web-development">Programming & Web Development</option>
+                                        <option value="pc-networking">PC, Laptop Maintenance & Networking</option>
+                                        <option value="autocad-2d-3d">AutoCAD 2D & 3D</option>
+                                        <option value="3d-studio-max">3D Studio Max</option>
+                                        <option value="revit">Revit</option>
+                                        <option value="sketchup">SketchUp</option>
+                                    </optgroup>
+                                    <optgroup label="UK Diploma Programs">
+                                        <option value="uk-diploma-strategic-management">UK Diploma in Strategic Management & Leadership</option>
+                                        <option value="uk-diploma-health-social-care">UK Diploma in Health & Social Care</option>
+                                        <option value="uk-diploma-information-technology">UK Diploma in Information Technology</option>
+                                        <option value="uk-diploma-accounting-finance">UK Diploma in Accounting & Finance</option>
+                                        <option value="uk-diploma-hospitality-tourism">UK Diploma in Hospitality & Tourism Management</option>
+                                        <option value="uk-diploma-business-management">UK Diploma in Business Management</option>
+                                        <option value="uk-diploma-entrepreneurship">UK Diploma in Business Innovation & Entrepreneurship</option>
+                                    </optgroup>
+                                    <optgroup label="Language & Professional">
+                                        <option value="ielts-preparation">IELTS Preparation</option>
+                                        <option value="english-enhancement">English Enhancement</option>
+                                        <option value="arabic-learning">Arabic Learning</option>
+                                        <option value="airline-ticketing">Airline Ticketing & Travel Agent</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Subject</label>
+                            <select class="form-select" name="subject">
+                                <option value="general">General Inquiry</option>
+                                <option value="enrollment">Course Enrollment</option>
+                                <option value="pricing">Pricing Information</option>
+                                <option value="schedule">Schedule Inquiry</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-textarea" name="message" placeholder="How can we help you?"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps?q=Panasonic%20Tower%2C%20Fahad%20Al%20Salem%20Street%2C%20Kuwait%20City%2C%20Kuwait&output=embed" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Contact Options -->
+    <section class="section" style="background: var(--gray-100);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Quick Contact</span>
+                <h2 class="section-title">Other Ways to Reach Us</h2>
+            </div>
+
+            <div class="categories-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="category-card">
+                    <div class="category-icon" style="background: #25d366; color: white;">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3>WhatsApp</h3>
+                    <p>Chat with us directly on WhatsApp for quick responses to your questions.</p>
+                    <a href="https://wa.me/965XXXXXXXX" class="btn btn-primary btn-sm" target="_blank" style="margin-top: 1rem;">
+                        <i class="fab fa-whatsapp"></i> Start Chat
+                    </a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon" style="background: var(--primary); color: white;">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>Call Us</h3>
+                    <p>Speak directly with our admissions team for immediate assistance.</p>
+                    <a href="tel:+965XXXXXXXX" class="btn btn-primary btn-sm" style="margin-top: 1rem;">
+                        <i class="fas fa-phone"></i> Call Now
+                    </a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon" style="background: var(--accent); color: var(--primary-dark);">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Us</h3>
+                    <p>Send us an email and we'll respond within 24 hours.</p>
+                    <a href="mailto:info@icsakuwait.com" class="btn btn-primary btn-sm" style="margin-top: 1rem;">
+                        <i class="fas fa-envelope"></i> Send Email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">FAQ</span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+
+            <div class="container-narrow">
+                <div class="tab-panel" style="margin-bottom: 1rem;">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;"><i class="fas fa-question-circle" style="color: var(--accent); margin-right: 0.5rem;"></i> How do I enroll in a course?</h4>
+                    <p style="margin: 0;">You can enroll by visiting our center, calling us, filling out the contact form, or sending us a message on WhatsApp. Our team will guide you through the enrollment process.</p>
+                </div>
+
+                <div class="tab-panel" style="margin-bottom: 1rem;">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;"><i class="fas fa-question-circle" style="color: var(--accent); margin-right: 0.5rem;"></i> What are the payment options?</h4>
+                    <p style="margin: 0;">We offer flexible payment options including full payment and installment plans. Contact us for detailed pricing information for your chosen course.</p>
+                </div>
+
+                <div class="tab-panel" style="margin-bottom: 1rem;">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;"><i class="fas fa-question-circle" style="color: var(--accent); margin-right: 0.5rem;"></i> Do you provide certificates?</h4>
+                    <p style="margin: 0;">Yes, all our courses come with completion certificates. Our UK Diploma programs provide internationally recognized qualifications.</p>
+                </div>
+
+                <div class="tab-panel" style="margin-bottom: 1rem;">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;"><i class="fas fa-question-circle" style="color: var(--accent); margin-right: 0.5rem;"></i> What are the class timings?</h4>
+                    <p style="margin: 0;">We offer flexible class schedules including morning, afternoon, and evening batches to accommodate working professionals and students.</p>
+                </div>
+
+                <div class="tab-panel">
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;"><i class="fas fa-question-circle" style="color: var(--accent); margin-right: 0.5rem;"></i> Do you offer job placement assistance?</h4>
+                    <p style="margin: 0;">Yes, we provide job placement support including resume building, interview preparation, and connections with our hiring partners.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="index.html" class="logo">
+                            <div class="logo-icon"><img src="images/ICSA-LOGO.png" alt="ICSA Logo"></div>
+                            <div class="logo-text">
+                                <span class="logo-title">ICSA</span>
+                                <span class="logo-subtitle">International Institute of Computer Science and Administration</span>
+                            </div>
+                        </a>
+                        <p>ICSA is a leading educational institution in Kuwait, offering professional courses in IT, Business, and Languages.</p>
+                    </div>
+
+                    <div class="footer-links-section">
+                        <h4 class="footer-title">Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="courses.html">Courses</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-links-section">
+                        <h4 class="footer-title">Courses</h4>
+                        <ul class="footer-links">
+                            <li><a href="courses.html">IT & Technical</a></li>
+                            <li><a href="courses.html">UK Diploma Programs</a></li>
+                            <li><a href="courses.html">Language Courses</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-contact">
+                        <h4 class="footer-title">Contact Us</h4>
+                        <div class="footer-contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Address</strong>
+                                <p>Kuwait City, Kuwait</p>
+                            </div>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Phone</strong>
+                                <p>+965 XXXX XXXX</p>
+                            </div>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong>
+                                <p>info@icsakuwait.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 ICSA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+<script src="js/main.js"></script>
+    <script>
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+        });
+    </script>
+</body>
+</html>
+
+
+
+
