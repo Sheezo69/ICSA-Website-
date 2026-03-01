@@ -63,25 +63,37 @@ document.addEventListener('DOMContentLoaded', function() {
     const courseCards = document.querySelectorAll('.course-card');
 
     if (filterBtns.length > 0) {
+        const applyCourseFilter = (filter) => {
+            // Remove active from all buttons
+            filterBtns.forEach(b => b.classList.remove('active'));
+
+            // Activate matching button if found
+            const activeBtn = Array.from(filterBtns).find(b => b.dataset.filter === filter) || filterBtns[0];
+            activeBtn.classList.add('active');
+
+            const activeFilter = activeBtn.dataset.filter;
+
+            courseCards.forEach(card => {
+                if (activeFilter === 'all' || card.dataset.category === activeFilter) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeInUp 0.5s ease-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        };
+
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Remove active from all buttons
-                filterBtns.forEach(b => b.classList.remove('active'));
-                // Add active to clicked button
-                btn.classList.add('active');
-
-                const filter = btn.dataset.filter;
-
-                courseCards.forEach(card => {
-                    if (filter === 'all' || card.dataset.category === filter) {
-                        card.style.display = 'block';
-                        card.style.animation = 'fadeInUp 0.5s ease-out';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+                applyCourseFilter(btn.dataset.filter);
             });
         });
+
+        // Support direct category links like courses.html?category=it
+        const categoryFromUrl = new URLSearchParams(window.location.search).get('category');
+        if (categoryFromUrl) {
+            applyCourseFilter(categoryFromUrl);
+        }
     }
 
     // Smooth Scroll for anchor links
@@ -224,6 +236,16 @@ document.addEventListener('DOMContentLoaded', function() {
             lowerDetailsSection.remove();
         }
     }
+
+    // Course pages: fill "Interested in" heading with current course title
+    const courseTitle = document.querySelector('.course-detail-content h1');
+    const inquiryHeading = document.querySelector('.inquiry-info h2');
+    if (courseTitle && inquiryHeading) {
+        const title = courseTitle.textContent.trim();
+        if (title) {
+            inquiryHeading.textContent = `Interested in ${title}?`;
+        }
+    }
 });
 
 // Toast notification function
@@ -312,4 +334,3 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
-
