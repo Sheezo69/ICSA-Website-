@@ -43,18 +43,49 @@ document.addEventListener('DOMContentLoaded', function() {
     const nav = document.querySelector('.nav');
     
     if (menuToggle && nav) {
+        menuToggle.setAttribute('aria-label', 'Toggle navigation menu');
+        menuToggle.setAttribute('aria-expanded', 'false');
+
+        const closeMenu = () => {
+            nav.classList.remove('active');
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            menuToggle.setAttribute('aria-expanded', 'false');
+        };
+
         menuToggle.addEventListener('click', () => {
             nav.classList.toggle('active');
+            const isOpen = nav.classList.contains('active');
             menuToggle.innerHTML = nav.classList.contains('active') ? 
                 '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
         });
 
         // Close menu when clicking on a link
         nav.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
-                nav.classList.remove('active');
-                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                closeMenu();
             });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!nav.classList.contains('active')) return;
+            if (nav.contains(event.target) || menuToggle.contains(event.target)) return;
+            closeMenu();
+        });
+
+        // Close menu on Escape
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && nav.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+
+        // Reset menu state on desktop resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1024 && nav.classList.contains('active')) {
+                closeMenu();
+            }
         });
     }
 
@@ -149,29 +180,43 @@ document.addEventListener('DOMContentLoaded', function() {
         return isValid;
     };
 
-    // Add animation classes on scroll
-    const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.course-card, .category-card, .feature-item, .testimonial-card');
-        
-        elements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            const elementVisible = 150;
-
-            if (elementTop < window.innerHeight - elementVisible) {
-                element.classList.add('fade-in-up');
+    // Scroll reveal via IntersectionObserver
+    const setupReveal = () => {
+        const autoTargets = document.querySelectorAll(
+            '.course-card, .category-card, .feature-item, .testimonial-card, .value-card, .team-card, .stat-item, .section-header'
+        );
+        autoTargets.forEach(el => {
+            if (!el.hasAttribute('data-reveal')) {
+                el.setAttribute('data-reveal', '');
+                const parent = el.parentElement;
+                const sameClass = Array.from(parent.children).filter(c => c.classList[0] === el.classList[0]);
+                const idx = sameClass.indexOf(el);
+                if (idx >= 0 && idx < 5) el.setAttribute('data-delay', String(idx + 1));
             }
         });
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
     };
 
-    window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll(); // Run once on load
+    setupReveal();
 
     // Counter animation for stats
     const animateCounters = () => {
         const counters = document.querySelectorAll('.hero-stat-value, .stat-content h4');
         
         counters.forEach(counter => {
-            const target = parseInt(counter.innerText);
+            const originalText = counter.innerText.trim();
+            const target = parseInt(originalText);
+            const suffix = originalText.replace(/[0-9]/g, '');
             if (!isNaN(target) && target > 0) {
                 const duration = 2000;
                 const step = target / (duration / 16);
@@ -180,10 +225,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const updateCounter = () => {
                     current += step;
                     if (current < target) {
-                        counter.innerText = Math.floor(current) + (counter.innerText.includes('+') ? '+' : '');
+                        counter.innerText = Math.floor(current) + suffix;
                         requestAnimationFrame(updateCounter);
                     } else {
-                        counter.innerText = target + (counter.innerText.includes('+') ? '+' : '');
+                        counter.innerText = target + suffix;
                     }
                 };
 
@@ -203,6 +248,42 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     animateCounters();
+
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        if (!question || !answer) return;
+
+        if (item.classList.contains('open')) {
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+
+        question.addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
+            faqItems.forEach(i => {
+                i.classList.remove('open');
+                const a = i.querySelector('.faq-answer');
+                if (a) a.style.maxHeight = '0';
+            });
+            if (!isOpen) {
+                item.classList.add('open');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // Image error fallback - graceful handling for missing course images
+    document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('error', function () {
+            if (!this.dataset.errored) {
+                this.dataset.errored = '1';
+                this.style.background = 'var(--gray-200)';
+                if (!this.style.minHeight) this.style.minHeight = '80px';
+            }
+        });
+    });
 
     // Pre-fill course in contact form if URL has course parameter
     const urlParams = new URLSearchParams(window.location.search);
@@ -313,23 +394,38 @@ style.textContent = `
         display: flex;
         flex-direction: column;
         position: absolute;
-        top: 100%;
+        top: calc(100% + 0.45rem);
         left: 0;
         right: 0;
         background: white;
-        padding: 1rem;
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius);
+        padding: 0.75rem;
         box-shadow: var(--shadow-lg);
         z-index: 1000;
+        max-height: calc(100vh - 110px);
+        overflow-y: auto;
     }
 
     .nav.active .nav-link {
-        padding: 1rem;
-        border-bottom: 1px solid var(--gray-100);
+        padding: 0.85rem 1rem;
+        border-bottom: 1px solid var(--gray-200);
+    }
+
+    .nav.active .nav-link:last-child {
+        border-bottom: none;
     }
 
     @media (max-width: 1024px) {
         .nav {
             display: none;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .nav.active {
+            padding: 0.6rem;
+            max-height: calc(100vh - 90px);
         }
     }
 `;
