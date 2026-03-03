@@ -1,10 +1,132 @@
-﻿// ICSA Website - Main JavaScript
+// ICSA Website - Main JavaScript
 
+window.showSitePopup = function(message, type = 'info') {
+    if (!message) return;
+
+    const existingPopup = document.querySelector('.site-popup-backdrop');
+    if (existingPopup) {
+        existingPopup.remove();
+    }
+
+    const safeType = ['success', 'error', 'warning', 'info'].includes(type) ? type : 'info';
+    const autoCloseMs = 4500;
+    let closeTimeout = null;
+    let isClosing = false;
+    const titleMap = {
+        success: '',
+        error: 'Something Went Wrong',
+        warning: 'Notice',
+        info: 'Message'
+    };
+
+    const backdrop = document.createElement('div');
+    backdrop.className = 'site-popup-backdrop';
+
+    const popup = document.createElement('div');
+    popup.className = `site-popup site-popup-${safeType}`;
+    popup.setAttribute('role', 'alertdialog');
+    popup.setAttribute('aria-modal', 'true');
+    popup.setAttribute('aria-live', 'assertive');
+    popup.setAttribute('tabindex', '-1');
+
+    if (safeType === 'success') {
+        const urlBaseMatch = window.location.pathname.match(/^(.*?\/ICSA_website\/)/i);
+        const urlBase = urlBaseMatch ? urlBaseMatch[1] : '/';
+        const imageCandidates = [
+            `${urlBase}images/submission_success.png`,
+            `${urlBase}images/submission_success.jpg`,
+            `${urlBase}images/submission_success.jpeg`,
+            `${urlBase}images/submission_success.webp`,
+            `${urlBase}images/subbmission_success.png`
+        ];
+
+        const visual = document.createElement('div');
+        visual.className = 'site-popup-visual';
+
+        const visualImg = document.createElement('img');
+        visualImg.className = 'site-popup-image';
+        visualImg.alt = 'Submission success';
+
+        let imageIndex = 0;
+        const loadNextImage = () => {
+            if (imageIndex >= imageCandidates.length) {
+                visual.remove();
+                return;
+            }
+            visualImg.src = imageCandidates[imageIndex];
+            imageIndex += 1;
+        };
+
+        visualImg.addEventListener('error', loadNextImage);
+        loadNextImage();
+
+        visual.appendChild(visualImg);
+        popup.appendChild(visual);
+    }
+
+    const titleText = titleMap[safeType];
+
+    const text = document.createElement('p');
+    text.className = 'site-popup-message';
+    text.textContent = String(message);
+
+    const timer = document.createElement('div');
+    timer.className = 'site-popup-timer';
+    const timerFill = document.createElement('span');
+    timerFill.className = 'site-popup-timer-fill';
+    timerFill.style.animationDuration = `${autoCloseMs}ms`;
+    timer.appendChild(timerFill);
+    if (titleText) {
+        const title = document.createElement('h3');
+        title.className = 'site-popup-title';
+        title.textContent = titleText;
+        popup.appendChild(title);
+    }
+    popup.appendChild(text);
+    popup.appendChild(timer);
+    backdrop.appendChild(popup);
+    document.body.appendChild(backdrop);
+
+    const onKeyDown = (event) => {
+        if (event.key === 'Escape') {
+            closePopup();
+        }
+    };
+
+    const closePopup = () => {
+        if (isClosing) return;
+        isClosing = true;
+        if (closeTimeout) {
+            clearTimeout(closeTimeout);
+        }
+        document.removeEventListener('keydown', onKeyDown);
+        backdrop.classList.remove('is-visible');
+        setTimeout(() => {
+            backdrop.remove();
+        }, 180);
+    };
+
+    backdrop.addEventListener('click', (event) => {
+        if (event.target === backdrop) {
+            closePopup();
+        }
+    });
+
+    document.addEventListener('keydown', onKeyDown);
+
+    requestAnimationFrame(() => {
+        backdrop.classList.add('is-visible');
+        timerFill.classList.add('is-running');
+        popup.focus();
+    });
+
+    closeTimeout = setTimeout(closePopup, autoCloseMs);
+};
 document.addEventListener('DOMContentLoaded', function() {
     // Live footer year + short copyright format
     const currentYear = new Date().getFullYear();
     document.querySelectorAll('.footer-bottom p').forEach(p => {
-        p.textContent = `© ${currentYear} ICSA. All rights reserved.`;
+        p.textContent = `\u00A9 ${currentYear} ICSA. All rights reserved.`;
     });
 
     // Top scroll progress bar
@@ -295,7 +417,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    console.log('ICSA Website loaded successfully! ðŸŽ“');
+    console.log('ICSA Website loaded successfully!');
 
     // Course pages: move full detail blocks into hero space
     const courseDetailContent = document.querySelector('.course-detail-content');
@@ -387,6 +509,146 @@ style.textContent = `
         to {
             opacity: 0;
             transform: translateX(100px);
+        }
+    }
+
+    .site-popup-backdrop {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        background: rgba(15, 23, 42, 0.55);
+        opacity: 0;
+        transition: opacity 0.18s ease;
+        z-index: 20000;
+    }
+
+    .site-popup-backdrop.is-visible {
+        opacity: 1;
+    }
+
+    .site-popup {
+        width: min(460px, 100%);
+        background: #ffffff;
+        border: 1px solid #dbe7f3;
+        border-radius: 16px;
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.24);
+        padding: 1.05rem 1.05rem 0.95rem;
+        transform: translateY(12px) scale(0.98);
+        opacity: 0;
+        transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .site-popup-backdrop.is-visible .site-popup {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    .site-popup-title {
+        margin: 0 0 0.45rem;
+        font-family: var(--font-heading);
+        font-size: 1.05rem;
+        line-height: 1.25;
+        color: var(--primary);
+    }
+
+    .site-popup-visual {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 220px;
+        height: 220px;
+        margin: 0 auto 0.55rem;
+        overflow: hidden;
+    }
+
+    .site-popup-image {
+        width: 220px;
+        height: 220px;
+        object-fit: contain;
+        transform: scale(1.7);
+        transform-origin: center;
+    }
+
+    .site-popup-message {
+        margin: 0;
+        font-size: 0.97rem;
+        line-height: 1.55;
+        color: var(--gray-700);
+    }
+
+    .site-popup-success .site-popup-title {
+        color: var(--success);
+    }
+
+    .site-popup-error .site-popup-title {
+        color: var(--danger);
+    }
+
+    .site-popup-warning .site-popup-title {
+        color: #a16207;
+    }
+
+    .site-popup-timer {
+        margin-top: 0.75rem;
+        height: 4px;
+        border-radius: 999px;
+        background: #e2e8f0;
+        overflow: hidden;
+    }
+
+    .site-popup-timer-fill {
+        display: block;
+        height: 100%;
+        width: 100%;
+        transform-origin: left center;
+        background: var(--primary);
+    }
+
+    .site-popup-success .site-popup-timer-fill {
+        background: var(--success);
+    }
+
+    .site-popup-error .site-popup-timer-fill {
+        background: var(--danger);
+    }
+
+    .site-popup-warning .site-popup-timer-fill {
+        background: #a16207;
+    }
+
+    .site-popup-timer-fill.is-running {
+        animation-name: sitePopupTimer;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes sitePopupTimer {
+        from {
+            transform: scaleX(1);
+        }
+        to {
+            transform: scaleX(0);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .site-popup {
+            border-radius: 14px;
+            padding: 0.95rem 0.9rem 0.9rem;
+        }
+
+        .site-popup-visual {
+            width: 180px;
+            height: 180px;
+        }
+
+        .site-popup-image {
+            width: 180px;
+            height: 180px;
+            transform: scale(1.65);
         }
     }
 
