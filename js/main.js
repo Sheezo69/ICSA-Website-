@@ -122,6 +122,79 @@ window.showSitePopup = function(message, type = 'info') {
 
     closeTimeout = setTimeout(closePopup, autoCloseMs);
 };
+
+window.resolveApiPath = function(filename) {
+    if (!filename) return null;
+    return window.location.pathname.includes('/courses/')
+        ? `../api/${filename}`
+        : `api/${filename}`;
+};
+
+let csrfTokenPromise = null;
+
+window.fetchCsrfToken = async function() {
+    if (csrfTokenPromise) {
+        return csrfTokenPromise;
+    }
+
+    csrfTokenPromise = (async () => {
+        const tokenEndpoint = window.resolveApiPath('csrf-token.php');
+        const response = await fetch(tokenEndpoint, {
+            method: 'GET',
+            credentials: 'same-origin',
+            cache: 'no-store'
+        });
+
+        if (!response.ok) {
+            throw new Error('Unable to initialize form security.');
+        }
+
+        const payload = await response.json();
+        if (!payload || !payload.success || !payload.csrf_token) {
+            throw new Error('Unable to initialize form security.');
+        }
+
+        return String(payload.csrf_token);
+    })();
+
+    try {
+        return await csrfTokenPromise;
+    } catch (error) {
+        csrfTokenPromise = null;
+        throw error;
+    }
+};
+
+window.attachFormSecurity = async function(formData, form) {
+    const token = await window.fetchCsrfToken();
+    formData.set('csrf_token', token);
+    formData.set('website', '');
+
+    if (form) {
+        let csrfInput = form.querySelector('input[name="csrf_token"]');
+        if (!csrfInput) {
+            csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = 'csrf_token';
+            form.appendChild(csrfInput);
+        }
+        csrfInput.value = token;
+
+        let honeypotInput = form.querySelector('input[name="website"]');
+        if (!honeypotInput) {
+            honeypotInput = document.createElement('input');
+            honeypotInput.type = 'text';
+            honeypotInput.name = 'website';
+            honeypotInput.tabIndex = -1;
+            honeypotInput.autocomplete = 'off';
+            honeypotInput.style.display = 'none';
+            honeypotInput.setAttribute('aria-hidden', 'true');
+            form.appendChild(honeypotInput);
+        }
+        honeypotInput.value = '';
+    }
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     // Live footer year + short copyright format
     const currentYear = new Date().getFullYear();
@@ -415,6 +488,40 @@ document.addEventListener('DOMContentLoaded', function() {
         if (courseSelect) {
             courseSelect.value = courseParam;
         }
+    }
+
+    // Prime security token and ensure hidden fields exist on forms that post to /api/
+    const apiForms = document.querySelectorAll('form[action*="api/"]');
+    if (apiForms.length > 0 && window.location.protocol !== 'file:') {
+        window.fetchCsrfToken()
+            .then((token) => {
+                apiForms.forEach((form) => {
+                    let csrfInput = form.querySelector('input[name="csrf_token"]');
+                    if (!csrfInput) {
+                        csrfInput = document.createElement('input');
+                        csrfInput.type = 'hidden';
+                        csrfInput.name = 'csrf_token';
+                        form.appendChild(csrfInput);
+                    }
+                    csrfInput.value = token;
+
+                    let honeypotInput = form.querySelector('input[name="website"]');
+                    if (!honeypotInput) {
+                        honeypotInput = document.createElement('input');
+                        honeypotInput.type = 'text';
+                        honeypotInput.name = 'website';
+                        honeypotInput.tabIndex = -1;
+                        honeypotInput.autocomplete = 'off';
+                        honeypotInput.style.display = 'none';
+                        honeypotInput.setAttribute('aria-hidden', 'true');
+                        form.appendChild(honeypotInput);
+                    }
+                    honeypotInput.value = '';
+                });
+            })
+            .catch(() => {
+                // Do not block page rendering; submission handlers will surface actionable errors.
+            });
     }
 
     console.log('ICSA Website loaded successfully!');

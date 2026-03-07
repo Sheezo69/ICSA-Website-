@@ -18,9 +18,9 @@
                     <div class='top-bar-item'><i class='fas fa-envelope'></i><span>admin@icsa.us</span></div>
                 </div>
                 <div class='top-bar-right'>
-                    <a href='#' class='social-link'><i class='fab fa-facebook-f'></i></a>
-                    <a href='#' class='social-link'><i class='fab fa-instagram'></i></a>
-                    <a href='#' class='social-link'><i class='fab fa-linkedin-in'></i></a>
+                    <a href="https://www.facebook.com/KuwaitICSA" class='social-link'><i class='fab fa-facebook-f'></i></a>
+                    <a href="https://www.instagram.com/icsakuwait/" class='social-link'><i class='fab fa-instagram'></i></a>
+                    <a href="https://www.linkedin.com" class='social-link'><i class='fab fa-linkedin-in'></i></a>
                 </div>
             </div>
         </div>
@@ -52,19 +52,22 @@
 
     <section class='course-detail-hero'>
         <div class='container'>
+            <div class='course-back-row'>
+                <a href='../courses.html' class='course-back-link'><i class='fas fa-arrow-left'></i> Back to Courses</a>
+            </div>
             <div class='course-detail-grid'>
                 <div class='course-detail-content'>
                     <span class='hero-label'>IT & Technical</span>
                     <h1>Revit</h1>
                     <div class='course-detail-meta'>
-                        <span class='course-detail-meta-item'><i class='fas fa-clock'></i> 2 Months</span>
+                        <span class='course-detail-meta-item'><i class='fas fa-clock'></i> 72 Hours</span>
                         <span class='course-detail-meta-item'><i class='fas fa-signal'></i> Intermediate</span>
                         <span class='course-detail-meta-item'><i class='fas fa-certificate'></i> Professional Certificate</span>
                     </div>
-                    <p class='course-detail-description'>Building Information Modeling (BIM) training for architectural and structural projects. This program is delivered with structured practical sessions and guided support to help learners build measurable outcomes.</p>
+                    <p class='course-detail-description'>Revit training helps learners create smart architectural models and improve structural design workflows using BIM-based practices.</p>
                 </div>
                 <aside class='course-detail-card'>
-                    <img src='https://images.unsplash.com/photo-1672669092491-ac5a210747bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200' alt='Revit' class='course-detail-image' loading='lazy'>
+                    <img src='../images/detail-revit.jpg' alt='Revit' class='course-detail-image' loading='lazy'>
                     <div class='course-detail-price'>
                         <div class='price'>Contact for Price</div>
                         <div class='price-note'>Flexible payment options available</div>
@@ -89,34 +92,34 @@
             <div class='course-content-grid'>
                 <article class='tab-panel course-block'>
                     <h3>Program Overview</h3>
-                    <p>Building Information Modeling (BIM) training for architectural and structural projects.</p>
+                    <p>This in-demand architectural course helps elevate your skills, create impressive structures, and chart your path to innovation and excellence.</p>
                 </article>
                 <article class='tab-panel course-block'>
                     <h3>What You Will Learn</h3>
                     <ul>
-                        <li>Hands-on modules with practical class exercises</li>
-                        <li>Industry-relevant tools and workflows</li>
-                        <li>Project-based activities to build confidence</li>
-                        <li>Structured problem-solving and implementation practice</li>
-                        <li>Career-focused technical foundation development</li>
+                        <li>BIM fundamentals and model-based workflow</li>
+                        <li>Architectural and structural model creation</li>
+                        <li>Documentation, views, and sheets setup</li>
+                        <li>Family basics and project coordination</li>
+                        <li>Professional project presentation standards</li>
                     </ul>
                 </article>
                 <article class='tab-panel course-block'>
                     <h3>Who Should Enroll</h3>
                     <ul>
-                        <li>Beginners entering the field</li>
-                        <li>Students seeking job-ready practical skills</li>
-                        <li>Professionals planning to upskill</li>
-                        <li>Learners transitioning into new career paths</li>
+                        <li>Architecture and civil engineering students</li>
+                        <li>AutoCAD users upgrading to BIM</li>
+                        <li>Design professionals seeking Revit workflow</li>
+                        <li>Beginners entering architectural software tracks</li>
                     </ul>
                 </article>
                 <article class='tab-panel course-block'>
                     <h3>Career Opportunities</h3>
                     <div class='career-list'>
-                    <span class='career-tag'>Entry-Level Specialist Roles</span>
-                    <span class='career-tag'>Technical & Operations Support Roles</span>
-                    <span class='career-tag'>Freelance/Independent Opportunities</span>
-                    <span class='career-tag'>Career Growth in Related Industries</span>
+                    <span class='career-tag'>BIM Modeler</span>
+                    <span class='career-tag'>Revit Technician</span>
+                    <span class='career-tag'>Architectural Drafting Assistant</span>
+                    <span class='career-tag'>Project Documentation Specialist</span>
                     </div>
                 </article>
             </div>
@@ -135,19 +138,65 @@
                         <div class='contact-method'><div class='contact-method-icon'><i class='fas fa-envelope'></i></div><div class='contact-method-content'><h4>Email Us</h4><p>admin@icsa.us</p></div></div>
                     </div>
                 </div>
-                <form class='inquiry-form course-inquiry-form' method='post' action='../api/inquiry-submit.php'>
-                    <h3 style='margin-bottom:1.5rem;color:var(--primary);'>Send Inquiry</h3>
+                <form class='inquiry-form course-contact-form' method='post' action='../api/contact-submit.php'>
+                    <h3 style='margin-bottom:0.5rem;color:var(--primary);'>Send Us a Message</h3>
+                    <p style='margin-bottom:1.5rem;color:var(--gray-600);'>Fill out the form below and we'll get back to you as soon as possible.</p>
                     <div class='form-row'>
                         <div class='form-group'><label class='form-label'>Full Name *</label><input type='text' class='form-input' name='name' required></div>
                         <div class='form-group'><label class='form-label'>Email Address *</label><input type='email' class='form-input' name='email' required></div>
                     </div>
                     <div class='form-row'>
                         <div class='form-group'><label class='form-label'>Phone Number *</label><input type='tel' class='form-input' name='phone' required></div>
-                        <div class='form-group'><label class='form-label'>Preferred Time</label><select class='form-select' name='preferred_time'><option value=''>Select Time</option><option value='morning'>Morning</option><option value='afternoon'>Afternoon</option><option value='evening'>Evening</option></select></div>
+                        <div class='form-group'>
+                            <label class='form-label'>Course *</label>
+                            <select class='form-select' name='course' required>
+                                <option value='' disabled>Select a course</option>
+                                <optgroup label='IT & Technical'>
+                                    <option value='computer-secretarial'>Computer Secretarial</option>
+                                    <option value='office-management'>Office Management</option>
+                                    <option value='graphics-designing'>Graphics Designing</option>
+                                    <option value='multimedia-motion-graphics'>Multimedia & Motion Graphics</option>
+                                    <option value='web-designing'>Web Designing</option>
+                                    <option value='programming-web-development'>Programming & Web Development</option>
+                                    <option value='pc-networking'>PC, Laptop Maintenance & Networking</option>
+                                    <option value='autocad-2d-3d'>AutoCAD 2D & 3D</option>
+                                    <option value='3d-studio-max'>3D Studio Max</option>
+                                    <option value='revit'>Revit</option>
+                                    <option value='sketchup'>SketchUp</option>
+                                </optgroup>
+                                <optgroup label='UK Diploma Programs'>
+                                    <option value='uk-diploma-strategic-management'>UK Diploma in Strategic Management & Leadership</option>
+                                    <option value='uk-diploma-health-social-care'>UK Diploma in Health & Social Care</option>
+                                    <option value='uk-diploma-information-technology'>UK Diploma in Information Technology</option>
+                                    <option value='uk-diploma-accounting-finance'>UK Diploma in Accounting & Finance</option>
+                                    <option value='uk-diploma-hospitality-tourism'>UK Diploma in Hospitality & Tourism Management</option>
+                                    <option value='uk-diploma-business-management'>UK Diploma in Business Management</option>
+                                    <option value='uk-diploma-entrepreneurship'>UK Diploma in Business Innovation & Entrepreneurship</option>
+                                </optgroup>
+                                <optgroup label='Language & Professional'>
+                                    <option value='ielts-preparation'>IELTS Preparation</option>
+                                    <option value='english-enhancement'>English Enhancement</option>
+                                    <option value='arabic-learning'>Arabic Learning</option>
+                                    <option value='airline-ticketing'>Airline Ticketing & Travel Agent</option>
+                                </optgroup>
+                            </select>
+                        </div>
                     </div>
-                    <div class='form-group'><label class='form-label'>Message</label><textarea class='form-textarea' name='message' placeholder='Tell us your goal and preferred batch...'></textarea></div>
-                    <input type='hidden' name='course' value='Revit'>
-                    <button type='submit' class='btn btn-primary' style='width:100%;'>Submit Inquiry</button>
+                    <div class='form-group'>
+                        <label class='form-label'>Subject</label>
+                        <select class='form-select' name='subject'>
+                            <option value='general'>General Inquiry</option>
+                            <option value='enrollment'>Course Enrollment</option>
+                            <option value='pricing'>Pricing Information</option>
+                            <option value='schedule'>Schedule Inquiry</option>
+                            <option value='other'>Other</option>
+                        </select>
+                    </div>
+                    <div class='form-group'><label class='form-label'>Message</label><textarea class='form-textarea' name='message' placeholder='How can we help you?'></textarea></div>
+                    <input type='text' name='website' tabindex='-1' autocomplete='off' aria-hidden='true' style='display:none;'>
+                    <button type='submit' class='btn btn-primary' style='width:100%;'>
+                        <i class='fas fa-paper-plane'></i> Send Message
+                    </button>
                 </form>
             </div>
         </div>
@@ -157,16 +206,7 @@
         <div class='container'>
             <div class='footer-top'>
                 <div class='footer-grid'>
-                    <div class='footer-brand'>
-                        <a href='../index.html' class='logo'>
-                            <div class='logo-icon'><img src='../images/ICSA-LOGO.png' alt='ICSA Logo'></div>
-                            <div class='logo-text'>
-                                <span class='logo-title'>ICSA</span>
-                                <span class='logo-subtitle'>International Institute of Computer Science and Administration</span>
-                            </div>
-                        </a>
-                        <p>ICSA is a leading educational institution in Kuwait, offering professional courses in IT, Business, and Language training.</p>
-                    </div>
+                    
                     <div class='footer-links-section'>
                         <h4 class='footer-title'>Quick Links</h4>
                         <ul class='footer-links'>
@@ -186,8 +226,8 @@
                     </div>
                     <div class='footer-contact'>
                         <h4 class='footer-title'>Contact Us</h4>
-                        <div class='footer-contact-item'><i class='fas fa-map-marker-alt'></i><div><strong>Address</strong><p>Maliya Branch: Panasonic Tower, 16 Fahad Al-Salem Street, Kuwait City<br>Mahboula Branch: Mahboula, Block No. 2 Street 20, Building No. 163. (After Mermaid Medical, Same Building Mamie's Resturant)<br>Yellow Building, 1st Floor</p></div></div>
-                        <div class='footer-contact-item'><i class='fas fa-phone'></i><div><strong>Phone</strong><p><i class="fab fa-whatsapp"></i> +965 9767 4076 / +965 9930 2850 (Maliya)<br><i class="fab fa-whatsapp"></i> +965 9092 1623 / +965 5176 6250 (Mahboula)<br><i class="fas fa-phone"></i> +965 2246 7301 (Telephone)</p></div></div>
+                        <div class='footer-contact-item'><i class='fas fa-map-marker-alt'></i><div><strong>Address</strong><div class='footer-branch-block'><strong class='footer-branch-name'>Maliya (Kuwait City)</strong><p>Panasonic Tower, 16 Fahad Al-Salem Street, Kuwait City</p></div><div class='footer-branch-divider'></div><div class='footer-branch-block'><strong class='footer-branch-name'>Mahboula</strong><p>Block No. 2 Street 20, Building No. 163<br>(After Mermaid Medical, same building Mamie's Restaurant)<br>Yellow Building, 1st Floor</p></div></div></div>
+                        <div class='footer-contact-item'><i class='fas fa-phone'></i><div><strong>Phone</strong><div class='footer-branch-block'><strong class='footer-branch-name'>Maliya (Kuwait City)</strong><p>+965 9767 4076<br>+965 9930 2850</p></div><div class='footer-branch-divider'></div><div class='footer-branch-block'><strong class='footer-branch-name'>Mahboula</strong><p>+965 9092 1623<br>+965 5176 6250</p></div><div class='footer-branch-divider'></div><div class='footer-branch-block'><strong class='footer-branch-name'>Telephone</strong><p>+965 2246 7301</p></div></div></div>
                         <div class='footer-contact-item'><i class='fas fa-envelope'></i><div><strong>Email</strong><p>admin@icsa.us</p></div></div>
                     </div>
                 </div>
@@ -198,11 +238,18 @@
 
     <script src='../js/main.js'></script>
     <script>
-        document.querySelectorAll('.course-inquiry-form').forEach(function(form) {
+        document.querySelectorAll('.course-contact-form').forEach(function(form) {
+            const courseSelect = form.querySelector("select[name='course']");
+            const currentFile = (window.location.pathname.split('/').pop() || '').toLowerCase();
+            const courseSlug = currentFile.endsWith('.html') ? currentFile.slice(0, -5) : currentFile;
+            if (courseSelect && courseSlug && courseSelect.querySelector("option[value='" + courseSlug + "']")) {
+                courseSelect.value = courseSlug;
+            }
+
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
 
-                const endpoint = form.getAttribute('action') || '../api/inquiry-submit.php';
+                const endpoint = form.getAttribute('action') || '../api/contact-submit.php';
 
                 if (window.location.protocol === 'file:') {
                     showSitePopup('Open this page through XAMPP URL: http://localhost/ICSA_website/courses/', 'warning');
@@ -212,6 +259,7 @@
                 const formData = new FormData(form);
 
                 try {
+                    await window.attachFormSecurity(formData, form);
                     const response = await fetch(endpoint, {
                         method: 'POST',
                         body: formData
@@ -225,17 +273,21 @@
                     }
 
                     if (!response.ok || !data.success) {
-                        throw new Error(data.message || 'Unable to send inquiry. Please try again.');
+                        throw new Error(data.message || 'Unable to send message. Please try again.');
                     }
 
-                    showSitePopup('Thank you for your inquiry. Our team will contact you soon.', 'success');
+                    showSitePopup('Thank you for your message! We will get back to you soon.', 'success');
+
                     form.reset();
+                    if (courseSelect && courseSlug && courseSelect.querySelector("option[value='" + courseSlug + "']")) {
+                        courseSelect.value = courseSlug;
+                    }
                 } catch (error) {
                     if (error && error.message && error.message.includes('Failed to fetch')) {
                         showSitePopup('Cannot reach form API. Open the website via http://localhost/ICSA_website and make sure Apache is running.', 'error');
                         return;
                     }
-                    showSitePopup(error.message || 'Unable to send inquiry. Please try again.', 'error');
+                    showSitePopup(error.message || 'Unable to send message. Please try again.', 'error');
                 }
             });
         });
