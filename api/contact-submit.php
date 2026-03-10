@@ -106,12 +106,9 @@ if (!in_array($courseInterest, $allowedCourseInterests, true)) {
 try {
     $connection = get_db_connection();
 
-    $ipAddress = isset($_SERVER['REMOTE_ADDR']) ? substr((string)$_SERVER['REMOTE_ADDR'], 0, 45) : null;
-    $userAgent = isset($_SERVER['HTTP_USER_AGENT']) ? substr((string)$_SERVER['HTTP_USER_AGENT'], 0, 255) : null;
-
     $stmt = $connection->prepare(
-        'INSERT INTO contact_messages (name, email, phone, course_interest, subject, message, ip_address, user_agent)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+        'INSERT INTO contact_messages (name, email, phone, course_interest, subject, message)
+         VALUES (?, ?, ?, ?, ?, ?)'
     );
 
     $courseInterest = $courseInterest !== '' ? $courseInterest : null;
@@ -119,15 +116,13 @@ try {
     $message = $message !== '' ? $message : null;
 
     $stmt->bind_param(
-        'ssssssss',
+        'ssssss',
         $name,
         $email,
         $phone,
         $courseInterest,
         $subject,
-        $message,
-        $ipAddress,
-        $userAgent
+        $message
     );
     $stmt->execute();
 

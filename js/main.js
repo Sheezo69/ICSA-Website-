@@ -30,7 +30,7 @@ window.showSitePopup = function(message, type = 'info') {
     popup.setAttribute('tabindex', '-1');
 
     if (safeType === 'success') {
-        const urlBaseMatch = window.location.pathname.match(/^(.*?\/ICSA_website\/)/i);
+        const urlBaseMatch = window.location.pathname.match(/^(.*?\/ICSA-Website-\/)/i);
         const urlBase = urlBaseMatch ? urlBaseMatch[1] : '/';
         const imageCandidates = [
             `${urlBase}images/submission_success.png`,

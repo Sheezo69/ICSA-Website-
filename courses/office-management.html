@@ -253,7 +253,7 @@
                 const endpoint = form.getAttribute('action') || '../api/contact-submit.php';
 
                 if (window.location.protocol === 'file:') {
-                    showSitePopup('Open this page through XAMPP URL: http://localhost/ICSA_website/courses/', 'warning');
+                    showSitePopup('Open this page through XAMPP URL: http://localhost/ICSA-Website-/courses/', 'warning');
                     return;
                 }
 
@@ -285,7 +285,7 @@
                     }
                 } catch (error) {
                     if (error && error.message && error.message.includes('Failed to fetch')) {
-                        showSitePopup('Cannot reach form API. Open the website via http://localhost/ICSA_website and make sure Apache is running.', 'error');
+                        showSitePopup('Cannot reach form API. Open the website via http://localhost/ICSA-Website- and make sure Apache is running.', 'error');
                         return;
                     }
                     showSitePopup(error.message || 'Unable to send message. Please try again.', 'error');

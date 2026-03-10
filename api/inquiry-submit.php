@@ -42,8 +42,7 @@ function clean_value(string $key, int $maxLength = 255): string
 $name = clean_value('name', 120);
 $email = clean_value('email', 190);
 $phone = clean_value('phone', 40);
-$course = clean_value('course', 140);
-$preferredTime = clean_value('preferred_time', 20);
+$course = clean_value('course', 120);
 $message = clean_value('message', 4000);
 
 if ($name === '' || $email === '' || $phone === '' || $course === '') {
@@ -64,37 +63,25 @@ if (!preg_match('/^[0-9+()\\-\\s]{7,40}$/', $phone)) {
     exit;
 }
 
-$validTimes = ['morning', 'afternoon', 'evening', ''];
-if (!in_array($preferredTime, $validTimes, true)) {
-    http_response_code(422);
-    echo json_encode(['success' => false, 'message' => 'Invalid preferred time']);
-    exit;
-}
-
 try {
     $connection = get_db_connection();
 
-    $ipAddress = isset($_SERVER['REMOTE_ADDR']) ? substr((string)$_SERVER['REMOTE_ADDR'], 0, 45) : null;
-    $userAgent = isset($_SERVER['HTTP_USER_AGENT']) ? substr((string)$_SERVER['HTTP_USER_AGENT'], 0, 255) : null;
-
     $stmt = $connection->prepare(
-        'INSERT INTO course_inquiries (name, email, phone, course, preferred_time, message, ip_address, user_agent)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+        'INSERT INTO contact_messages (name, email, phone, course_interest, subject, message)
+         VALUES (?, ?, ?, ?, ?, ?)'
     );
 
-    $preferredTime = $preferredTime !== '' ? $preferredTime : null;
+    $subject = null;
     $message = $message !== '' ? $message : null;
 
     $stmt->bind_param(
-        'ssssssss',
+        'ssssss',
         $name,
         $email,
         $phone,
         $course,
-        $preferredTime,
-        $message,
-        $ipAddress,
-        $userAgent
+        $subject,
+        $message
     );
     $stmt->execute();
 
