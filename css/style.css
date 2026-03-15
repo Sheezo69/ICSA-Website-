@@ -153,7 +153,7 @@ ul {
 
 .section-label {
     display: inline-block;
-    font-size: 0.875rem;
+    font-size: 1.05rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -849,6 +849,11 @@ ul {
 @media (max-width: 1100px) {
     .footer-locations-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
+@media (max-width: 1024px) {
+    .footer-locations-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .footer-location-card { flex: 1 1 280px; min-width: 240px; }
+    .footer-branches-grid { grid-template-columns: 1fr; }
+}
 @media (max-width: 700px) {
     .footer-locations-grid { grid-template-columns: 1fr; }
     .footer-branches-grid { grid-template-columns: 1fr; }
@@ -1234,12 +1239,24 @@ ul {
 .faq-item { background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius-md); overflow: hidden; transition: box-shadow 0.25s ease, border-color 0.25s ease; }
 .faq-item.open { border-color: var(--primary-light); box-shadow: var(--shadow-md); }
 .faq-question { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.25rem 1.5rem; cursor: pointer; user-select: none; }
-.faq-question h4 { font-size: 1rem; color: var(--primary); font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.75rem; line-height: 1.5; }
+.faq-question h4 { font-size: 1.25rem; color: var(--primary); font-weight: 600; margin: 0; display: flex; align-items: center; gap: 0.75rem; line-height: 1.5; }
 .faq-icon-q { color: var(--accent); flex-shrink: 0; }
-.faq-chevron { color: var(--primary); font-size: 0.875rem; transition: transform 0.3s ease; flex-shrink: 0; }
+.faq-chevron { color: var(--primary); font-size: 1rem; transition: transform 0.3s ease; flex-shrink: 0; }
 .faq-item.open .faq-chevron { transform: rotate(180deg); }
 .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; padding: 0 1.5rem; }
-.faq-answer p { color: var(--gray-700); font-size: 0.9375rem; line-height: 1.8; padding-bottom: 1.25rem; margin: 0; }
+.faq-answer p { color: var(--gray-700); font-size: 1.0625rem; line-height: 1.8; padding-bottom: 1.25rem; margin: 0; }
+
+.faq-section .section-label { font-size: 30px; letter-spacing: 0.18em; }
+.faq-section .section-title { font-size: 30px; color: #ffffff !important; font-weight: 800; opacity: 1 !important; text-shadow: 0 3px 12px rgba(0,0,0,0.35); }
+.faq-section .section-header { margin-bottom: 3rem; position: relative; z-index: 1; color: #ffffff !important; opacity: 1 !important; }
+.faq-section .section-header * { color: #ffffff !important; opacity: 1 !important; }
+@media (max-width: 700px) {
+    .faq-section .section-label { font-size: 30px; }
+    .faq-section .section-title { font-size: 30px; }
+    .faq-question { padding: 1.1rem 1.25rem; }
+    .faq-question h4 { font-size: 1.15rem; }
+    .faq-answer p { font-size: 0.98rem; }
+}
 
 /* ========================
    Contact Form + Map Wrapper  ← NEW
