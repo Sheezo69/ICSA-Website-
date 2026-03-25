@@ -55,9 +55,51 @@ function get_client_ip(): string
     return substr((string)$ip, 0, 45);
 }
 
+function is_same_origin_request(): bool
+{
+    $host = isset($_SERVER['HTTP_HOST']) ? trim((string)$_SERVER['HTTP_HOST']) : '';
+    if ($host === '') {
+        return false;
+    }
+
+    $candidates = [];
+    if (!empty($_SERVER['HTTP_ORIGIN'])) {
+        $candidates[] = (string)$_SERVER['HTTP_ORIGIN'];
+    }
+    if (!empty($_SERVER['HTTP_REFERER'])) {
+        $candidates[] = (string)$_SERVER['HTTP_REFERER'];
+    }
+
+    foreach ($candidates as $candidate) {
+        $parts = parse_url($candidate);
+        if (!is_array($parts)) {
+            continue;
+        }
+
+        $candidateHost = isset($parts['host']) ? trim((string)$parts['host']) : '';
+        $candidatePort = isset($parts['port']) ? ':' . (string)$parts['port'] : '';
+        $normalizedHost = $candidateHost !== '' ? $candidateHost . $candidatePort : '';
+
+        if ($normalizedHost !== '' && strcasecmp($normalizedHost, $host) === 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 function enforce_rate_limit(string $scope, int $maxAttempts = 6, int $windowSeconds = 300): bool
 {
-    $filePath = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'icsa_form_rate_limit.json';
+    $projectTempDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'tmp';
+    if (!is_dir($projectTempDir)) {
+        @mkdir($projectTempDir, 0775, true);
+    }
+
+    $baseDir = is_dir($projectTempDir) && is_writable($projectTempDir)
+        ? $projectTempDir
+        : rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR);
+
+    $filePath = $baseDir . DIRECTORY_SEPARATOR . 'icsa_form_rate_limit.json';
     $fileHandle = fopen($filePath, 'c+');
     if ($fileHandle === false) {
         return true;

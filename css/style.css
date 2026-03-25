@@ -352,6 +352,7 @@ ul {
     display: flex;
     align-items: center;
     gap: 0.875rem;
+    flex-shrink: 0;
 }
 
 .logo-icon {
@@ -407,6 +408,7 @@ ul {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    margin: 0 auto;
 }
 
 .nav-link {
@@ -468,7 +470,8 @@ ul {
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
+    flex-shrink: 0;
 }
 
 .menu-toggle {
@@ -1258,9 +1261,7 @@ ul {
     .faq-answer p { font-size: 0.98rem; }
 }
 
-/* ========================
-   Contact Form + Map Wrapper  ← NEW
-   ======================== */
+/* Contact Form + Map Wrapper */
 .cic-form-and-map {
     display: flex;
     flex-direction: column;

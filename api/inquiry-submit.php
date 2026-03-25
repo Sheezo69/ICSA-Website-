@@ -24,7 +24,10 @@ if (is_honeypot_triggered('website')) {
     exit;
 }
 
-if (!validate_csrf_token(isset($_POST['csrf_token']) ? (string)$_POST['csrf_token'] : null)) {
+if (
+    !validate_csrf_token(isset($_POST['csrf_token']) ? (string)$_POST['csrf_token'] : null)
+    && !is_same_origin_request()
+) {
     http_response_code(403);
     echo json_encode(['success' => false, 'message' => 'Security token mismatch. Refresh and try again.']);
     exit;

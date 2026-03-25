@@ -130,6 +130,77 @@ window.resolveApiPath = function(filename) {
         : `api/${filename}`;
 };
 
+window.toAbsoluteUrl = function(path) {
+    if (!path) return null;
+    try {
+        return new URL(path, window.location.href).toString();
+    } catch (error) {
+        return path;
+    }
+};
+
+window.getFriendlySubmitError = function(error, fallbackMessage = 'Unable to send message. Please try again.') {
+    const rawMessage = error && typeof error.message === 'string' ? error.message : '';
+
+    if (rawMessage.includes('Failed to fetch')) {
+        return 'Cannot reach form API. Open the website via http://localhost/ICSA-Website- and make sure Apache is running.';
+    }
+
+    if (rawMessage.includes('expected pattern') || rawMessage.includes('did not match')) {
+        return fallbackMessage;
+    }
+
+    return rawMessage || fallbackMessage;
+};
+
+window.submitApiForm = async function(endpoint, formData) {
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Accept': 'application/json'
+        },
+        body: formData
+    });
+
+    let data = {};
+    try {
+        data = await response.json();
+    } catch (jsonError) {
+        data = {};
+    }
+
+    if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Unable to send message. Please try again.');
+    }
+
+    return data;
+};
+
+window.validateContactForm = function(form) {
+    const nameInput = form.querySelector('input[name="name"]');
+    const emailInput = form.querySelector('input[name="email"]');
+    const phoneInput = form.querySelector('input[name="phone"]');
+
+    const name = nameInput ? nameInput.value.trim() : '';
+    const email = emailInput ? emailInput.value.trim() : '';
+    const phone = phoneInput ? phoneInput.value.trim() : '';
+
+    if (!name || !email || !phone) {
+        return 'Name, email, and phone are required.';
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return 'Please enter a valid email address.';
+    }
+
+    if (!/^[0-9+()\-\s]{7,40}$/.test(phone)) {
+        return 'Please enter a valid phone number.';
+    }
+
+    return '';
+};
+
 let csrfTokenPromise = null;
 
 window.fetchCsrfToken = async function() {
@@ -138,7 +209,7 @@ window.fetchCsrfToken = async function() {
     }
 
     csrfTokenPromise = (async () => {
-        const tokenEndpoint = window.resolveApiPath('csrf-token.php');
+        const tokenEndpoint = window.toAbsoluteUrl(window.resolveApiPath('csrf-token.php'));
         const response = await fetch(tokenEndpoint, {
             method: 'GET',
             credentials: 'same-origin',
@@ -522,6 +593,53 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(() => {
                 // Do not block page rendering; submission handlers will surface actionable errors.
             });
+    }
+
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm && !contactForm.dataset.bound) {
+        contactForm.dataset.bound = 'true';
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const defaultButtonHtml = submitButton ? submitButton.innerHTML : '';
+
+        const setSubmitting = (isSubmitting) => {
+            if (!submitButton) return;
+            submitButton.disabled = isSubmitting;
+            submitButton.setAttribute('aria-busy', String(isSubmitting));
+            submitButton.innerHTML = isSubmitting
+                ? '<i class="fas fa-spinner fa-spin"></i> Sending...'
+                : defaultButtonHtml;
+        };
+
+        contactForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            if (window.location.protocol === 'file:') {
+                showSitePopup('Open this page through XAMPP URL: http://localhost/ICSA-Website-/contact.html', 'warning');
+                return;
+            }
+
+            const validationMessage = window.validateContactForm(contactForm);
+            if (validationMessage) {
+                showSitePopup(validationMessage, 'error');
+                return;
+            }
+
+            const endpoint = window.toAbsoluteUrl(contactForm.getAttribute('action') || 'api/contact-submit.php');
+            const formData = new FormData(contactForm);
+
+            try {
+                setSubmitting(true);
+                await window.attachFormSecurity(formData, contactForm);
+                await window.submitApiForm(endpoint, formData);
+                showSitePopup('Thank you for your message! We will get back to you soon.', 'success');
+                contactForm.reset();
+            } catch (error) {
+                const message = window.getFriendlySubmitError(error);
+                showSitePopup(message, 'error');
+            } finally {
+                setSubmitting(false);
+            }
+        });
     }
 
     console.log('ICSA Website loaded successfully!');
