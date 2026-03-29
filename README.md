@@ -5,26 +5,26 @@ This is the complete frontend for ICSA Kuwait's official website. Built with pur
 
 ---
 
-## ðŸ“ Project Structure
+## 📁 Project Structure
 
 ```
 ICSA-website/
-â”œâ”€â”€ index.html                 # Homepage
-â”œâ”€â”€ about.html                 # About Us page
-â”œâ”€â”€ courses.html               # All courses listing with filters
-â”œâ”€â”€ contact.html               # Contact page with inquiry form
-â”œâ”€â”€ css/
-â”‚   â””â”€â”€ style.css             # All styles (corporate blue/gold theme)
-â”œâ”€â”€ js/
-â”‚   â””â”€â”€ main.js               # Interactivity and animations
-â”œâ”€â”€ courses/
-â”‚   â””â”€â”€ programming-web-development.html  # Course detail template
-â””â”€â”€ README.md
+├── index.html                 # Homepage
+├── about.html                 # About Us page
+├── courses.html               # All courses listing with filters
+├── contact.html               # Contact page with inquiry form
+├── css/
+│   └── style.css             # All styles (corporate blue/gold theme)
+├── js/
+│   └── main.js               # Interactivity and animations
+├── courses/
+│   └── programming-web-development.html  # Course detail template
+└── README.md
 ```
 
 ---
 
-## ðŸŽ¨ Design Features
+## 🎨 Design Features
 
 ### Color Scheme (Corporate Professional)
 - **Primary**: Deep Blue (#1e3a5f) - Trust, professionalism
@@ -83,7 +83,7 @@ ICSA-website/
 
 ---
 
-## ðŸš€ How to Use
+## 🚀 How to Use
 
 ### Option 1: Open Directly
 1. Navigate to the `ICSA-website` folder
@@ -91,12 +91,12 @@ ICSA-website/
 
 ### Option 2: Live Server (Recommended)
 1. Install VS Code extension "Live Server"
-2. Right-click `index.html` â†’ "Open with Live Server"
+2. Right-click `index.html` → "Open with Live Server"
 3. Auto-reloads when you save
 
 ---
 
-## ðŸ“‹ All 22 Courses Listed
+## 📋 All 22 Courses Listed
 
 ### IT & Technical (11 courses)
 1. Computer Secretarial
@@ -128,7 +128,7 @@ ICSA-website/
 
 ---
 
-## ðŸ› ï¸ Creating New Course Pages
+## 🛠️ Creating New Course Pages
 
 To create a new course detail page:
 
@@ -155,7 +155,7 @@ To create a new course detail page:
 
 ---
 
-## ðŸ“ Customization Guide
+## 📝 Customization Guide
 
 ### Change Colors
 Edit `css/style.css` - look for `:root`:
@@ -169,9 +169,9 @@ Edit `css/style.css` - look for `:root`:
 
 ### Update Contact Information
 Search and replace in all HTML files:
-- `+965 XXXX XXXX` â†’ Your phone number
-- `info@icsakuwait.com` â†’ Your email
-- `Kuwait City, Kuwait` â†’ Your address
+- `+965 XXXX XXXX` → Your phone number
+- `info@icsakuwait.com` → Your email
+- `Kuwait City, Kuwait` → Your address
 
 ### Add Your Images
 Replace Unsplash URLs with your own images:
@@ -188,7 +188,7 @@ Find and replace: `965XXXXXXXX` with your actual WhatsApp number
 
 ---
 
-## ðŸ“± Features
+## 📱 Features
 
 ### Responsive Design
 - Desktop: Full layout
@@ -211,7 +211,7 @@ Find and replace: `965XXXXXXXX` with your actual WhatsApp number
 
 ---
 
-## ðŸ”„ Converting to Laravel
+## 🔄 Converting to Laravel
 
 When you're ready to move to Laravel:
 
@@ -248,7 +248,7 @@ When you're ready to move to Laravel:
 
 ---
 
-## âš¡ Quick Tips
+## ⚡ Quick Tips
 
 1. **Test on mobile** - Resize browser to see responsive design
 2. **Replace placeholder images** - Use actual ICSA photos
@@ -258,9 +258,9 @@ When you're ready to move to Laravel:
 
 ---
 
-## ðŸ“ž Need Help?
+## 📞 Need Help?
 
 This is a complete, production-ready frontend. When you're ready for Laravel backend integration, the structure is already planned for easy conversion.
 
-**Good luck with the ICSA website! ðŸŽ“**
+**Good luck with the ICSA website! 🎓**
 
