@@ -1,0 +1,43 @@
+# Protect sensitive files
+<FilesMatch "\.(sql|log|ini|env)$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# Disable directory browsing
+Options -Indexes
+
+# Protect auth.php specifically
+<Files auth.php>
+    Order deny,allow
+    Deny from all
+</Files>
+
+# Enable rewrite engine (if available)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Force HTTPS (uncomment when SSL is enabled)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+    
+    # Protect sensitive directories
+    RewriteRule ^database/ - [F,L]
+    RewriteRule ^tmp/ - [F,L]
+</IfModule>
+
+# Security headers (if mod_headers is available)
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# PHP settings (if running under mod_php)
+<IfModule mod_php.c>
+    php_flag display_errors off
+    php_value memory_limit 128M
+    php_value post_max_size 16M
+    php_value upload_max_filesize 8M
+</IfModule>
