@@ -257,8 +257,8 @@ $csrf_token = generate_csrf_token();
         </form>
         
         <div class="login-footer">
-            <p>Default login: admin / password</p>
-            <p>Change password after first login</p>
+            <p>Use the current admin credentials configured for this environment.</p>
+            <p>Manage password changes from the Laravel admin settings page.</p>
         </div>
     </div>
 </body>

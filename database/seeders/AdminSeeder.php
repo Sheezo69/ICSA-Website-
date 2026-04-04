@@ -14,10 +14,12 @@ class AdminSeeder extends Seeder
             return;
         }
 
+        $defaultPassword = (string) env('ADMIN_DEFAULT_PASSWORD', 'change-this-admin-password');
+
         Admin::query()->create([
             'username' => 'admin',
             'email' => 'admin@icsa.us',
-            'password_hash' => Hash::make('password'),
+            'password_hash' => Hash::make($defaultPassword),
             'role' => Admin::ROLE_ADMIN,
             'login_attempts' => 0,
         ]);
