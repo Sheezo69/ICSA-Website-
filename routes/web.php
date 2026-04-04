@@ -11,6 +11,8 @@ use App\Http\Controllers\SiteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+$adminPrefix = config('admin.path', 'secure-staff-portal');
+
 Route::get('/', [SiteController::class, 'home'])->name('site.home');
 Route::get('/index.html', [SiteController::class, 'home']);
 Route::get('/about', [SiteController::class, 'about'])->name('site.about');
@@ -29,7 +31,7 @@ Route::get('/api/csrf-token.php', [FormController::class, 'csrfToken'])->name('a
 Route::post('/api/contact-submit.php', [FormController::class, 'contact'])->name('api.contact');
 Route::post('/api/inquiry-submit.php', [FormController::class, 'inquiry'])->name('api.inquiry');
 
-Route::prefix('admin')->group(function (): void {
+Route::prefix($adminPrefix)->group(function (): void {
     Route::get('/', fn () => redirect()->route('admin.dashboard'));
 
     Route::middleware('admin.guest')->group(function (): void {
@@ -81,3 +83,7 @@ Route::prefix('admin')->group(function (): void {
         });
     });
 });
+
+if ($adminPrefix !== 'admin') {
+    Route::any('/admin/{any?}', fn () => abort(404))->where('any', '.*');
+}

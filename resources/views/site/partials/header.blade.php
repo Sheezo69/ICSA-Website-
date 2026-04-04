@@ -20,7 +20,7 @@
 
             <div class="header-actions">
                 @if ($showHeaderLogin)
-                    <a href="{{ route('admin.login') }}" class="btn btn-outline btn-sm">Login</a>
+                    <a href="{{ config('services.student_portal.url') }}" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Login</a>
                 @endif
                 <a href="{{ route('site.courses') }}" class="btn btn-primary btn-sm">Enroll Now</a>
                 <button class="menu-toggle" id="menuToggle">

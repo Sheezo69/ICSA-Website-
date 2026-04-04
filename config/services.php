@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'student_portal' => [
+        'url' => env('STUDENT_PORTAL_URL', 'https://icsakuwait.com'),
+    ],
+
 ];

@@ -14,7 +14,7 @@ This project has been migrated from the original static/PHP site into Laravel wh
 ## Local URLs
 
 - Website: `http://localhost/ICSA-Website-/`
-- Admin login: `http://localhost/ICSA-Website-/admin/login`
+- Admin login: `http://localhost/ICSA-Website-/secure-staff-portal/login`
 
 Legacy-style URLs still work too:
 
@@ -22,12 +22,11 @@ Legacy-style URLs still work too:
 - `http://localhost/ICSA-Website-/about.html`
 - `http://localhost/ICSA-Website-/courses.html`
 - `http://localhost/ICSA-Website-/contact.html`
-- `http://localhost/ICSA-Website-/admin/login.php`
 
 ## Default admin
 
 - Username: `admin`
-- Password: `password`
+- Password: defined in `.env` as `ADMIN_DEFAULT_PASSWORD`
 
 ## Environment
 
@@ -40,6 +39,11 @@ The app is configured for the existing XAMPP MySQL setup:
 - Password: empty
 
 Those defaults are already set in `.env` and `.env.example`.
+
+Admin access is also configured in `.env`:
+
+- `ADMIN_PORTAL_PATH=secure-staff-portal`
+- `STUDENT_PORTAL_URL=https://icsakuwait.com`
 
 ## Important paths
 
