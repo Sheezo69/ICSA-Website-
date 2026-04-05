@@ -1,5 +1,37 @@
 // ICSA Website - Main JavaScript
 
+window.getAppBasePath = function() {
+    const mainScript = Array.from(document.scripts).find((script) => {
+        const src = script.getAttribute('src') || '';
+
+        return /(?:^|\/)js\/main\.js(?:[?#].*)?$/i.test(src);
+    });
+
+    if (!mainScript) {
+        return '';
+    }
+
+    try {
+        const scriptUrl = new URL(mainScript.src, window.location.href);
+        const basePath = scriptUrl.pathname.replace(/\/js\/main\.js$/i, '');
+
+        return basePath === '/' ? '' : basePath.replace(/\/$/, '');
+    } catch (error) {
+        return '';
+    }
+};
+
+window.resolveAppPath = function(path = '') {
+    const basePath = window.getAppBasePath();
+    const normalizedPath = String(path).replace(/^\/+/, '');
+
+    if (!normalizedPath) {
+        return basePath || '/';
+    }
+
+    return `${basePath}/${normalizedPath}`.replace(/\/{2,}/g, '/');
+};
+
 window.showSitePopup = function(message, type = 'info') {
     if (!message) return;
 
@@ -30,15 +62,13 @@ window.showSitePopup = function(message, type = 'info') {
     popup.setAttribute('tabindex', '-1');
 
     if (safeType === 'success') {
-        const urlBaseMatch = window.location.pathname.match(/^(.*?\/ICSA-Website-\/)/i);
-        const urlBase = urlBaseMatch ? urlBaseMatch[1] : '/';
         const imageCandidates = [
-            `${urlBase}images/submission_success.png`,
-            `${urlBase}images/submission_success.jpg`,
-            `${urlBase}images/submission_success.jpeg`,
-            `${urlBase}images/submission_success.webp`,
-            `${urlBase}images/subbmission_success.png`
-        ];
+            'images/submission_success.png',
+            'images/submission_success.jpg',
+            'images/submission_success.jpeg',
+            'images/submission_success.webp',
+            'images/subbmission_success.png'
+        ].map((path) => window.toAbsoluteUrl(window.resolveAppPath(path)));
 
         const visual = document.createElement('div');
         visual.className = 'site-popup-visual';
@@ -125,9 +155,8 @@ window.showSitePopup = function(message, type = 'info') {
 
 window.resolveApiPath = function(filename) {
     if (!filename) return null;
-    return window.location.pathname.includes('/courses/')
-        ? `../api/${filename}`
-        : `api/${filename}`;
+
+    return window.resolveAppPath(`api/${filename}`);
 };
 
 window.toAbsoluteUrl = function(path) {
@@ -143,7 +172,7 @@ window.getFriendlySubmitError = function(error, fallbackMessage = 'Unable to sen
     const rawMessage = error && typeof error.message === 'string' ? error.message : '';
 
     if (rawMessage.includes('Failed to fetch')) {
-        return 'Cannot reach form API. Open the website via http://localhost/ICSA-Website- and make sure Apache is running.';
+        return 'Cannot reach the form API. Open the website through your configured server URL and make sure PHP is serving the app.';
     }
 
     if (rawMessage.includes('expected pattern') || rawMessage.includes('did not match')) {
@@ -633,7 +662,7 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
 
             if (window.location.protocol === 'file:') {
-                showSitePopup('Open this page through XAMPP URL: http://localhost/ICSA-Website-/contact.html', 'warning');
+                showSitePopup('Open this page through your website URL, not directly as a local file.', 'warning');
                 return;
             }
 

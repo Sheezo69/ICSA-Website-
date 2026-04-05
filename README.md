@@ -13,15 +13,15 @@ This project has been migrated from the original static/PHP site into Laravel wh
 
 ## Local URLs
 
-- Website: `http://localhost/ICSA-Website-/`
-- Admin login: `http://localhost/ICSA-Website-/secure-staff-portal/login`
+- Website: `http://localhost/icsa-international/`
+- Admin login: `http://localhost/icsa-international/secure-staff-portal/login`
 
 Legacy-style URLs still work too:
 
-- `http://localhost/ICSA-Website-/index.html`
-- `http://localhost/ICSA-Website-/about.html`
-- `http://localhost/ICSA-Website-/courses.html`
-- `http://localhost/ICSA-Website-/contact.html`
+- `http://localhost/icsa-international/index.html`
+- `http://localhost/icsa-international/about.html`
+- `http://localhost/icsa-international/courses.html`
+- `http://localhost/icsa-international/contact.html`
 
 ## Default admin
 
@@ -30,7 +30,7 @@ Legacy-style URLs still work too:
 
 ## Environment
 
-The app is configured for the existing XAMPP MySQL setup:
+The app is configured with local MySQL defaults:
 
 - Database: `icsa_website`
 - Host: `127.0.0.1`
@@ -39,6 +39,8 @@ The app is configured for the existing XAMPP MySQL setup:
 - Password: empty
 
 Those defaults are already set in `.env` and `.env.example`.
+
+For Nginx, point your server `root` to `public/` and set `APP_URL` to the same host you configure in Nginx. A ready-to-edit example config is included at `deploy/nginx/icsa-international.conf.example`, with setup notes in `docs/nginx.md`.
 
 Admin access is also configured in `.env`:
 
@@ -49,6 +51,8 @@ Admin access is also configured in `.env`:
 
 - Public assets: `public/`
 - Shared root asset links: `css`, `js`, `images` (symlinked to `public/`)
+- Nginx example config: `deploy/nginx/icsa-international.conf.example`
+- Nginx setup notes: `docs/nginx.md`
 - Public Blade views: `resources/views/site/`
 - Public page source copies: `resources/legacy/root-pages/`
 - Course HTML sources: `resources/content/courses/`
